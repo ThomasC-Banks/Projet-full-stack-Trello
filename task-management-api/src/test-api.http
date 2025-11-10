@@ -1,0 +1,107 @@
+###  Création d'un utilisateur
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "ariel",
+    "email": "ariel_test_damien@example.com",
+    "password": "labubu"
+}
+
+###
+lélia
+### Voir tous les utilisateurs 
+GET http://localhost:3000/users
+
+###
+
+### Récupérer un utilisateur par ID
+GET http://localhost:3000/users/9
+
+###
+
+### Update d'un utilisateur
+PATCH http://localhost:3000/users/1
+Content-Type: application/json
+
+{
+    "name": "luna",
+    "email": "lunasuppléante@test.com"
+}
+
+###
+
+### Suppression  d'un utilisateur
+DELETE http://localhost:3000/users/11
+
+###
+
+### Création d'une tâche
+POST http://localhost:3000/tasks
+Content-Type: application/json
+
+{
+    "title": "Préparer la réunion de lundi",
+    "description": "Réunir les documents nécessaires",
+    "status": "en_cours",
+    "priority": "haute",
+    "dueDate": "2025-11-20",
+    "assignedUserId": 1
+}
+
+###
+
+###  Récupérer toutes les tâches
+GET http://localhost:3000/tasks
+
+###
+
+### Récupérer une tâche par ID
+GET http://localhost:3000/tasks/1
+
+###
+
+###  Mettre à jour une tâche
+PATCH http://localhost:3000/tasks/1
+Content-Type: application/json
+
+{
+    "status": "done"
+}
+
+###
+
+###  Suppression d'une tâche
+DELETE http://localhost:3000/tasks/1
+
+###
+
+### Assigner une tâche à un utilisateur
+PATCH http://localhost:3000/tasks/3/assign/13
+
+###
+
+
+###  Récupérer les tâches selon leur statut
+GET http://localhost:3000/tasks?status=terminée
+# Exemples possibles de statut : en_cours, en_attente, terminée
+
+###
+
+###  Récupérer les tâches selon leur priorité
+GET http://localhost:3000/tasks?priority=haute
+# Exemples de priorités : basse, moyenne, haute
+
+###
+
+###  Récupérer les tâches assignées à un utilisateur
+GET http://localhost:3000/tasks?assignedUserId=12
+# Remplace 1 par l’ID de l’utilisateur que tu veux tester
+
+###
+
+###  Récupérer les tâches avant une certaine date limite
+GET http://localhost:3000/tasks?dueDate=2025-12-01
+# Format de date attendu : YYYY-MM-DD
+
+###
