@@ -1,18 +1,35 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Task } from 'src/tasks/tasks.entity';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { UserTask } from '../user-task/user-task.entity';
+import { Task } from '../tasks/tasks.entity';
 
-@Entity() // Déclare que cette classe est une entité (table) dans la base de données
+export enum UserRole { USER = 'user', ADMIN = 'admin' }
+
+@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn() // ID auto-incrémenté de l'utilisateur
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  user_id: string;
 
-  @Column() // Colonne pour le nom de l'utilisateur
-  name: string;
+  @Column({ unique: true })
+  username: string;
 
-  @Column({ unique: true }) // Colonne pour l'email, doit être unique
+  @Column({ unique: true })
   email: string;
 
-  // Relation avec les tâches : un utilisateur peut avoir plusieurs tâches
-  @OneToMany(() => Task, (task) => task.assignedUser)
-  tasks: Task[];
+  @Column()
+  password: string;
+
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
+  role: UserRole;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @OneToMany(() => UserTask, ut => ut.user)
+  userTasks: UserTask[];
+
+  @OneToMany(() => Task, t => t.creator)
+  createdTasks: Task[];
 }

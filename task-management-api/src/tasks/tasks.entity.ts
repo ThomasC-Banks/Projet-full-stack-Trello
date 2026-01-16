@@ -1,30 +1,44 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { User } from 'src/users/user.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from 'typeorm';
+import { Project } from '../projects/projects.entity';
+import { Status } from '../status/status.entity';
+import { User } from '../users/users.entity';
+import { UserTask } from '../user-task/user-task.entity';
 
-@Entity()
+@Entity('tasks')
 export class Task {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  task_id: string;
+
+  @ManyToOne(() => Project, p => p.tasks, { nullable: true })
+  @JoinColumn({ name: 'project_id' })
+  project: Project;
 
   @Column()
   title: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'text' })
   description: string;
 
-  @Column({ default: 'en_attente' })
-  status: string; // ex: 'en_attente', 'en_cours', 'terminée'
+  @Column({ nullable: true })
+  priority: number;
 
-  @Column({ default: 'moyenne' })
-  priority: string; // ex: 'basse', 'moyenne', 'haute'
+  @ManyToOne(() => Status, { eager: true })
+  @JoinColumn({ name: 'status_id' })
+  status: Status;
 
-  @Column({ type: 'date', nullable: true })
-  dueDate: string;
+  @Column({ nullable: true, type: 'timestamp' })
+  due_date: Date;
 
-  // Relation avec User
-  @ManyToOne(() => User, (user) => user.tasks, {
-    eager: true,
-    onDelete: 'SET NULL',
-  })
-  assignedUser: User;
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @ManyToOne(() => User, user => user.createdTasks, { nullable: true })
+  @JoinColumn({ name: 'creator_id' })
+  creator: User;
+
+  // optionally: relations to usertask
 }
+
