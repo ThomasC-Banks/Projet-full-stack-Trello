@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🗂️ Task Management — Clone Trello
+# 🗂️ Task Management: Clone Trello
 
 **Projet Full-Stack · ETNA**
 
