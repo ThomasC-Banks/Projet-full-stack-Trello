@@ -1,67 +1,158 @@
-# 📝 API Task Management
+<div align="center">
 
-## 🌟 Description
-API pour gérer des utilisateurs, des tâches et des projets.  
-Développée avec **NestJS**, **TypeORM** et **TypeScript**.  
+# 🗂️ Task Management — Clone Trello
 
-Fonctionnalités :  
-- 👤 Gestion des utilisateurs (CRUD)  
-- ✅ Gestion des tâches (CRUD, assignation, filtrage par statut, date limite et utilisateur assigné)  
-- 📁 Gestion des projets et des statuts des tâches  
+**Projet Full-Stack · ETNA**
 
-## 📌 Sommaire
-1. [Installation et création de la base de données](#installation-et-création-de-la-base-de-données-avec-mariadb)  
-2. [Installation et configuration de NestJS](#installation-et-configuration-de-nestjs)  
-3. [Lancement du serveur](#lancement-du-serveur)  
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)
+![TypeORM](https://img.shields.io/badge/TypeORM-FE0803?style=flat-square&logo=typeorm&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=flat-square&logo=mariadb&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Status](https://img.shields.io/badge/Status-Fonctionnel-brightgreen?style=flat-square)
 
+</div>
 
 ---
 
-## 🛠️ Étape 1 : Installation et création de la base de données avec MariaDB
+## 👤 Projet
 
-    1-- Installer MariaDB dans le terminal:
-        sudo apt update
-        sudo apt install mariadb-server
-    2-- Démarrer MariaDB
-        sudo service mariadb start
-    3-- Sécuriser l'installation
-        sudo mysql_secure_installation
-    4--Se connecter à MariaDB
-        sudo mysql -u root -p
-    5-- Création de la base de données
-        CREATE DATABASE task_management;
-        USE task_management;
-    6-- Création des tables
-        mysql -u root -p task_management < bdd.sql
+| **Projet solo** · ETNA | `corde_t` |
+|---|---|
 
---- Commandes pouvant être utiles:
-    SHOW TABLES;    -> affiche les tables
-    DESCRIBE Users; -> sert à afficher la structure de la table Users
+---
 
-## 🛠️ Étape 2 : Installation de NestJS
+## 🎯 Présentation
 
-    1-- Installer Node.js et NPM
-        sudo apt install -y nodejs npm
-    2--  Installer le CLI NestJS
-        npm install -g @nestjs/cli
-    3-- Création d'un nouveau projet NestJS
-        nest new task-management-api
-        cd task-management-api
-    4-- Configuration de MariaDB avec TypeORM, installation de TypeORM
-        npm install @nestjs/typeorm typeorm mysql2
-    5-- Création des modules
-        nest generate module users
-        nest generate service users
-        nest generate controller users
-    6-- Lancement du serveur API NestJS
-        npm run start:dev
+API REST et interface web full-stack inspirée de **Trello**, pour la gestion de tâches et de projets. Développée avec **NestJS**, **TypeORM** et **TypeScript** côté back, **React** côté front.
 
-L'API est par défaut accessible sur http://localhost:3000.
+**Fonctionnalités :**
+- 👤 Gestion des utilisateurs (CRUD)
+- ✅ Gestion des tâches (CRUD, assignation, filtrage par statut / date limite / utilisateur)
+- 📁 Gestion des projets et des statuts des tâches
+
+---
+
+## 🏗️ Architecture
 
 ```
- ____  _ _    ____  _  _   __   _  _   __   ____ 
-(  _ \( \/ )  (_  _)/ )( \ /  \ ( \/ ) / _\ / ___)
- ) _ ( )  /     )(  ) __ ((  O )/ \/ \/    \\___ \
-(____/(__/     (__) \_)(_/ \__/ \_)(_/\_/\_/(____/
-
+Projet-full-stack-Trello/
+├── task-management-api/        → 🟥 Backend NestJS + TypeORM
+│   ├── src/
+│   │   ├── users/              → module utilisateurs
+│   │   ├── tasks/              → module tâches
+│   │   └── projects/           → module projets
+│   └── bdd.sql                 → schéma de la base de données
+└── task-management-frontend/   → ⚛️  Frontend React
 ```
+
+**Flux de données :**
+```
+[Navigateur] → React Frontend → API NestJS (REST) → TypeORM → MariaDB
+```
+
+---
+
+## 🧩 Stack technique
+
+| Couche | Technologie | Rôle |
+|--------|-------------|------|
+| Backend | NestJS + TypeScript | Framework API REST |
+| ORM | TypeORM | Liaison code ↔ base de données |
+| Base de données | MariaDB | Persistance des données |
+| Frontend | React | Interface utilisateur |
+
+---
+
+## 🛠️ Prérequis
+
+<details>
+<summary><b>🗄️ MariaDB</b></summary>
+
+```bash
+# Installer MariaDB
+sudo apt update
+sudo apt install mariadb-server
+
+# Démarrer MariaDB
+sudo service mariadb start
+
+# Sécuriser l'installation
+sudo mysql_secure_installation
+
+# Se connecter
+sudo mysql -u root -p
+```
+</details>
+
+<details>
+<summary><b>🟢 Node.js & NestJS</b></summary>
+
+```bash
+# Installer Node.js et npm
+sudo apt install -y nodejs npm
+
+# Installer le CLI NestJS
+npm install -g @nestjs/cli
+```
+</details>
+
+---
+
+## 🚀 Lancement
+
+**1. Cloner le repo**
+```bash
+git clone https://github.com/ThomasC-Banks/Projet-full-stack-Trello.git
+cd Projet-full-stack-Trello
+```
+
+**2. Créer la base de données**
+```bash
+sudo mysql -u root -p
+```
+```sql
+CREATE DATABASE task_management;
+USE task_management;
+```
+```bash
+mysql -u root -p task_management < task-management-api/bdd.sql
+```
+
+**3. Installer les dépendances et démarrer le backend**
+```bash
+cd task-management-api
+npm install @nestjs/typeorm typeorm mysql2
+npm run start:dev
+```
+
+> L'API est accessible sur **http://localhost:3000**
+
+**4. Installer les dépendances et démarrer le frontend**
+```bash
+cd ../task-management-frontend
+npm install
+npm start
+```
+
+---
+
+## ⚡ Commandes utiles
+
+```bash
+# Afficher les tables de la BDD
+SHOW TABLES;
+
+# Afficher la structure d'une table
+DESCRIBE Users;
+```
+
+---
+
+<div align="center">
+
+*Projet réalisé à l'ETNA · NestJS · TypeORM · MariaDB · React*
+
+`corde_t`
+
+</div>
